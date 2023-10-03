@@ -31,69 +31,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/Assignment 2/ML-A2/Corona_validation.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/Assignment 2/ML-A2/Domain_Adaptation/Twitter_train_1.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/Assignment 2/ML-A2/Domain_Adaptation/Twitter_train_10.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/Assignment 2/ML-A2/Domain_Adaptation/Twitter_train_100.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/Assignment 2/ML-A2/Domain_Adaptation/Twitter_train_2.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/Assignment 2/ML-A2/Domain_Adaptation/Twitter_train_25.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/Assignment 2/ML-A2/Domain_Adaptation/Twitter_train_5.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/Assignment 2/ML-A2/Domain_Adaptation/Twitter_train_50.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/Assignment 2/ML-A2/Domain_Adaptation/Twitter_validation.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
       </map>
     </option>
   </component>
