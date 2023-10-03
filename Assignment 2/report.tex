@@ -15,6 +15,22 @@
 
 \section{Text Classification}
 \subsection{Naïve Bayes Multiclass Classification}
+
+The prior probability for a class (e.g., Positive) is computed as:
+\begin{equation}
+P(\text{class}) = \frac{\text{Number of samples in the class}}{\text{Total number of samples}}
+\end{equation}
+
+The likelihood of a word given a class is:
+\begin{equation}
+P(\text{word} | \text{class}) = \frac{\text{Number of times word appears in class} + 1}{\text{Total number of words in class} + \text{Size of vocabulary}}
+\end{equation}
+
+The class prediction for a given document (or tweet) is:
+\begin{equation}
+\text{argmax}_{\text{class}} \left( \log(\text{prior of class}) + \sum_{\text{word in document}} \log(\text{likelihood of word given class}) \right)
+\end{equation}
+
 \subsubsection{Accuracy Report}
 \begin{itemize}
     \item Training: 80.23 percent  
@@ -54,6 +70,16 @@
     \end{itemize}
 \end{itemize}
 
+For three classes, the accuracy of random guessing is:
+\begin{equation}
+\text{Accuracy} = \frac{1}{3}
+\end{equation}
+
+The accuracy when predicting all samples as positive is:
+\begin{equation}
+\text{Accuracy} = \frac{\text{Number of positive samples}}{\text{Total number of samples}}
+\end{equation}
+
 Comparing to the Naive Bayes Classifier I have created, as expected, it performs better than both Random and Positive Prediction.
 
 \begin{table}[h]
@@ -66,18 +92,43 @@ Comparing to the Naive Bayes Classifier I have created, as expected, it performs
     \hline
     Positive & 43.84\% & 43.85\% \\
     \hline
-    Naïve Bayes (Accuracy Report) & 80.23\% & 69.96\% \\
+    Naïve Bayes & 80.23\% & 69.96\% \\
     \hline
     \end{tabular}
     \caption{Comparison of different methods for text classification.}
     \label{tab:comparison}
 \end{table}
 
+The improvement of our Naïve Bayes classifier over:
+    \begin{itemize}
+        \item Random guessing is \( \approx 34.42\% \).
+        \item Predicting all as "Positive" is \( \approx 23.90\% \).
+    \end{itemize}
+
+
 
 \subsection{Confusion Matrix}
 
-\subsubsection{Naive Bayes}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+     & \textbf{Predicted Positive} & \textbf{Predicted Neutral} & \textbf{Predicted Negative} \\
+    \hline
+    \textbf{Actual Positive} & True Positives (TP) & False Neutral (FN) & False Negative (FN) \\
+    \hline
+    \textbf{Actual Neutral} & False Positive (FP) & True Neutrals (TN) & False Neutral (FN) \\
+    \hline
+    \textbf{Actual Negative} & False Positive (FP) & False Neutral (FN) & True Negatives (TN) \\
+    \hline
+    \end{tabular}
+    \caption{Confusion Matrix Format}
+    \label{tab:confusion_matrix}
+\end{table}
 
+
+\subsubsection{Naive Bayes}
+\begin{center}
 \textbf{Training Set}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
@@ -107,9 +158,10 @@ Neutral & 290 & 171 & 156 \\
 \hline
 \end{tabular}
 \end{center}
+\end{center}
 
 \subsubsection{Random}
-
+\begin{center}
 \textbf{Training Set}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
@@ -139,9 +191,10 @@ Neutral & 205 & 223 & 189 \\
 \hline
 \end{tabular}
 \end{center}
+\end{center}
 
 \subsubsection{Positive}
-
+\begin{center}
 \textbf{Training Set}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
@@ -171,7 +224,7 @@ Neutral & 617 & 0 & 0 \\
 \hline
 \end{tabular}
 \end{center}
-
+\end{center}
 
 
 \begin{enumerate}
@@ -225,11 +278,21 @@ Stop Word removal is performed using the set of English stop words in the nltk c
 \subsubsection{Model Accuracy}
 \begin{itemize}
     \item Training: 73.46 percent
-    \item Validation: 22.98 percent
+    \item Validation: 65.65 percent
 \end{itemize}
 
 \subsubsection{Observations}
-% Write your answer for part 1(d)iv here.
+The wordclouds created after removing stop words and stemming more accurately represent the words with positive and negative sentiment. However, validation accuracy decreases slightly. 
+
+Here are a few potential reasons for this reduction:
+
+\begin{enumerate}
+	\item Loss of Contextual Information: By removing stopwords, we may have inadvertently removed some contextual information from the tweets. In some cases, stopwords can provide valuable context. For instance, the phrase "not good" is negative, but if we remove the stopword "not", the sentiment could be misinterpreted.
+	\item Over-Stemming: Stemming can sometimes be aggressive, merging words that should be distinct. This can lead to loss of valuable information. For example, the words "universe" and "university" might both be stemmed to "univers", even though they have very different meanings.
+	\item Variability in Data: The nature of tweets is such that many words or phrases are used in a colloquial or slang manner. Some of these might be treated as stopwords or might get inappropriately stemmed, leading to loss of sentiment information.
+	\item Model Simplicity: The Naïve Bayes classifier assumes that features (words, in this case) are independent given the class label. This is a strong assumption, especially for textual data where word order and context matter. The preprocessing might exacerbate the impact of this assumption by removing or altering words that provide context.
+\end{enumerate}
+
 
 \subsection{Feature Engineering}
 % Write your answers for part 1(e) here.
@@ -239,11 +302,69 @@ Stop Word removal is performed using the set of English stop words in the nltk c
 
 \section{Image Classification}
 \subsection{Binary Classification}
-\subsubsection{Using CVXOPT}
-% Write your answers for part 2(a) here.
+\subsubsection{Using CVXOPT, Linear Kernel}
+\text{Given the standard SVM dual formulation:}
 
-\subsubsection{Using scikit-learn SVM function}
-% Write your answers for part 2(b) here.
+\begin{align*}
+\max_{\alpha} & \sum_{i=1}^{m} \alpha_i - \frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} y^{(i)} y^{(j)} \alpha_i \alpha_j \langle x^{(i)}, x^{(j)} \rangle
+\end{align*}
+
+\text{subject to:}
+
+\begin{align*}
+0 & \leq \alpha_i \leq C, \\
+\sum_{i=1}^{m} \alpha_i y^{(i)} & = 0
+\end{align*}
+
+\text{The CVXOPT standard quadratic problem format is:}
+
+\begin{align*}
+\min_{\alpha} & \frac{1}{2} \alpha^T P \alpha + q^T \alpha
+\end{align*}
+
+\text{subject to:}
+
+\begin{align*}
+G\alpha & \leq h, \\
+A\alpha & = b
+\end{align*}
+
+\text{To put the SVM dual in this form:}
+
+\begin{itemize}
+\item \( P \) is an \( m \times m \) matrix where \( P_{ij} = y^{(i)} y^{(j)} \langle x^{(i)}, x^{(j)} \rangle \)
+\item \( q \) is an \( m \) sized column vector with all elements being -1.
+\item \( G \) is a \( 2m \times m \) matrix constructed such that it considers both \( \alpha_i \geq 0 \) and \( \alpha_i \leq C \).
+\item \( h \) is a \( 2m \) sized vector with first \( m \) elements being 0 and next \( m \) elements being \( C \).
+\item \( A \) is a \( 1 \times m \) row vector with elements as the labels \( y^{(i)} \).
+\item \( b \) is a scalar 0.
+\end{itemize}
+
+
+\[ w = \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} \]
+
+
+For a chosen support vector \( x_s \): \\
+\[ b = y_s - \sum_{i=1}^{m} \alpha_i y^{(i)} \langle x^{(i)}, x_s \rangle \]
+Ensure \( 0 < \alpha_s < C \) for the chosen \( x_s \).
+
+\[ \text{prediction} = \text{sign}(\langle w, x \rangle + b) \]
+
+\paragraph{Results:}
+\begin{itemize}
+    \item Number of Support Vectors Obtained: 2383
+    \item Percentage of training samples constituting support vectors: 50.06 percent
+    \item Intercept (b)= 1.041890005986661
+    \item The Validation accuracy came to be 77.5 percent.
+\end{itemize}
+
+\subsubsection{Using CVXOPT, Gaussian Kernel}
+
+
+\subsubsection{Using scikit-learn SVM function, Linear Kernel}
+
+
+\subsubsection{Using scikit-learn SVM function, Gaussian Kernel}
 
 \subsection{Multi-Class Image Classification}
 \subsubsection{One-vs-One Multi-Class SVM}
