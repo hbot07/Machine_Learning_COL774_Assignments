@@ -308,7 +308,15 @@ Intuitively, the length of a tweet might give some information about its sentime
 \end{itemize}
 
 \subsection{Domain Adaptation}
-\includegraphics[width=\textwidth]{}
+\includegraphics[width=\textwidth]{Assignment 2/q1/Domain adaptation validation_accuracies plot.png}
+
+\subsubsection{Observations:}
+\begin{itemize}
+    \item For both algorithms, the validation accuracy increases as more target training data is added. This indicates that having more target domain data generally improves the model's performance on unseen target domain data.
+    \item The first algorithm (combined source and target data) shows a more gradual increase in validation accuracy as the dataset size increases. By contrast, the second algorithm (only target data) starts with a lower validation accuracy for smaller datasets but catches up and eventually surpasses the first algorithm as the dataset size increases.
+    \item The results indicate the value of domain adaptation. The first algorithm, which leverages data from the source domain, provides a head start in performance, especially when the target domain data is limited. As more target domain data becomes available, the advantage of using source domain data diminishes, and the second algorithm's performance surpasses the first.
+\end{itemize}
+In conclusion, these observations highlight the benefits of domain adaptation, especially when target domain data is limited. However, as more target domain data becomes available, the advantage of using only target domain data becomes apparent. The results also emphasize the importance of having a sufficiently large dataset to prevent overfitting and ensure better generalization to unseen data.
 
 \section{Image Classification}
 \subsection{Binary Classification}
@@ -441,11 +449,17 @@ To express the SVM dual in this form:
 \end{itemize}
 
 \subsection{Multi-Class Image Classification}
-\subsubsection{One-vs-One Multi-Class SVM}
-% Write your answer for part 2(a)i here.
+\subsubsection{One-vs-One Multi-Class SVM using CVXOPT}
+\begin{itemize}
+    \item Validation Accuracy: 56 percent
+\end{itemize}
 
 \subsubsection{Using scikit-learn SVM function}
-% Write your answers for part 2(b) here.
+\begin{itemize}
+    \item Validation Accuracy: 55.91 percent
+    \item The validation accuracy is almost similar to what was obtained using CVXOPT
+    \item The training time for LIBSVM was considerably smaller compared to CVXOPT(2 minutes vs 17 minutes)
+\end{itemize}
 
 \subsubsection{Confusion Matrix and Observations}
 % Write your answers for part 2(c) here.
@@ -453,7 +467,5 @@ To express the SVM dual in this form:
 \subsubsection{Validation and Cross-Validation}
 % Write your answers for part 2(d) here.
 
-\section*{Conclusions}
-% Summarize your findings and observations here.
 
 \end{document}
