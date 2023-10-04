@@ -448,6 +448,20 @@ To express the SVM dual in this form:
     \item \includegraphics[width=\textwidth]{Assignment 2/q2/top_6_support_vectors_rbf libsvm rbf.png}
 \end{itemize}
 
+\subsubsection{Comparison of b and Support Vectors}
+\paragraph{For Gaussian Kernel}
+\begin{itemize}
+    \item b found using cvxopt = -1.06832676477997
+    \item b found using libsvm = -1.0622098653371628
+    \item They are approximately equal
+\end{itemize}
+
+\paragraph{For Linear Kernel}
+\begin{itemize}
+    \item b found using cvxopt = 1.041890005986661
+    \item b found using libsvm = 1.06989668
+\end{itemize}
+
 \subsection{Multi-Class Image Classification}
 \subsubsection{One-vs-One Multi-Class SVM using CVXOPT}
 \begin{itemize}
@@ -462,12 +476,14 @@ To express the SVM dual in this form:
 \end{itemize}
 
 \subsubsection{Confusion Matrix and Observations}
-\subsubsection{LIBSVM}
 \includegraphics[width=\textwidth]{Assignment 2/q2/confusion_matrix libsvm.png}
 \begin{itemize}
     \item We can see that 58 examples of class 4 are predicted as class 2, this is the highest number among classes being misclassified
-    \item This is because 
 \end{itemize}
+Some misclassified images:
+
+
+\includegraphics[width=0.7\textwidth]{Assignment 2/q2/misclassified_4_2.png}
 
 \subsubsection{Validation and Cross-Validation}
 % Write your answers for part 2(d) here.
