@@ -362,6 +362,52 @@ Ensure \( 0 < \alpha_s < C \) for the chosen \( x_s \).
 
 \subsubsection{Using CVXOPT, Gaussian Kernel}
 
+The Gaussian (or Radial Basis Function - RBF) kernel between two points \( x \) and \( z \) is defined as:
+\[
+K(x, z) = \exp(-\gamma \|x - z\|^2)
+\]
+where \( \gamma \) is a parameter that controls the width of the Gaussian function.
+
+section*{SVM Dual Formulation with Gaussian Kernel}
+
+The dual formulation of the SVM optimization problem with the Gaussian kernel is:
+\begin{align*}
+\text{maximize} \quad & \sum_{i=1}^{m} \alpha_i - \frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} \alpha_i \alpha_j y^{(i)} y^{(j)} K(x^{(i)}, x^{(j)}) \\
+\text{subject to} \quad & 0 \leq \alpha_i \leq C \\
+& \sum_{i=1}^{m} \alpha_i y^{(i)} = 0
+\end{align*}
+where:
+\begin{itemize}
+    \item \( \alpha_i \) are the dual variables
+    \item \( y^{(i)} \) are the labels, taking values in \{ -1, 1 \}
+    \item \( K(x^{(i)}, x^{(j)}) \) is the Gaussian kernel between points \( x^{(i)} \) and \( x^{(j)} \)
+    \item \( C \) is a regularization parameter
+\end{itemize}
+
+CVXOPT solves the quadratic programming problem in the following standard form:
+\begin{align*}
+\text{minimize} \quad & \frac{1}{2} \alpha^T P \alpha + q^T \alpha \\
+\text{subject to} \quad & G\alpha \leq h \\
+& A\alpha = b
+\end{align*}
+To express the SVM dual in this form:
+\begin{itemize}
+    \item \( P \) is an \( m \times m \) matrix with elements \( P_{ij} = y^{(i)} y^{(j)} K(x^{(i)}, x^{(j)}) \)
+    \item \( q \) is an \( m \)-sized column vector with all elements being -1
+    \item \( G \) is a \( 2m \times m \) matrix constructed such that it considers both \( \alpha_i \geq 0 \) and \( \alpha_i \leq C \)
+    \item \( h \) is a \( 2m \)-sized vector with the first \( m \) elements being 0 and the next \( m \) elements being \( C \)
+    \item \( A \) is a \( 1 \times m \) row vector with elements as the labels \( y^{(i)} \)
+    \item \( b \) is a scalar 0
+\end{itemize}
+
+\paragraph{Results:}
+
+\begin{itemize}
+    \item Number of support vectors: 3058
+    \item Validation Accuracy: 75.5 precent
+\end{itemize}
+
+
 
 \subsubsection{Using scikit-learn SVM function, Linear Kernel}
 
@@ -381,7 +427,7 @@ Ensure \( 0 < \alpha_s < C \) for the chosen \( x_s \).
     \item Number of Support Vectors Obtained: 3054
     \item Percentage of training samples constituting support vectors: 64.16 percent
     \item The Validation accuracy came to be 75.25 percent.
-    \item \includegraphics[width=\textwidth]{}
+    \item \includegraphics[width=\textwidth]{Assignment 2/q2/top_6_support_vectors_rbf libsvm rbf.png}
 \end{itemize}
 
 \subsection{Multi-Class Image Classification}
