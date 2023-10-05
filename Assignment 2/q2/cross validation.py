@@ -39,11 +39,9 @@ def train_and_evaluate(C, folds, X_train_shuffled, y_train_shuffled, X_val, y_va
     cv_accuracy = np.mean(accuracies)
     clf = multiclass_svm(X_train_shuffled, y_train_shuffled, C)
     val_accuracy = clf.score(X_val, y_val)
+    print(f"Result, C={C}, CV accuracy={cv_accuracy}, Validation accuracy={val_accuracy}")
     return cv_accuracy, val_accuracy
 
-# Load images
-# [ ... same as before ...]
-# load all images for validation
 X_train = load_images_from_folder(f"../data/svm/train/0")
 y_train = np.zeros(len(X_train))
 
@@ -69,16 +67,20 @@ fold_size = len(X_train) // 5
 folds = [(start, start + fold_size) for start in range(0, len(X_train), fold_size)]
 
 C_values = [1e-5, 1e-3, 1, 5, 10]
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    futures = [executor.submit(train_and_evaluate, C, folds, X_train_shuffled, y_train_shuffled, X_val, y_val) for C in C_values]
+
+results_with_C = list(zip(C_values, futures))
+results_sorted = sorted(results_with_C, key=lambda x: x[0])
+
 cv_accuracies = []
 val_accuracies = []
 
-# Multithreading
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    results = [executor.submit(train_and_evaluate, C, folds, X_train_shuffled, y_train_shuffled, X_val, y_val) for C in C_values]
-    for f in concurrent.futures.as_completed(results):
-        cv_acc, val_acc = f.result()
-        cv_accuracies.append(cv_acc)
-        val_accuracies.append(val_acc)
+for C, f in results_sorted:
+    cv_acc, val_acc = f.result()
+    cv_accuracies.append(cv_acc)
+    val_accuracies.append(val_acc)
+
 
 # Plotting
 plt.plot(C_values, cv_accuracies, label="5-fold CV")
@@ -87,5 +89,5 @@ plt.xscale("log")
 plt.xlabel("C")
 plt.ylabel("Accuracy")
 plt.legend()
-plt.savefig("cross_validation_mult.png")
+plt.savefig("cross_validation_mult real.png")
 plt.show()
