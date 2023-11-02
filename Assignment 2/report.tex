@@ -453,13 +453,22 @@ To express the SVM dual in this form:
 \begin{itemize}
     \item b found using cvxopt = -1.06832676477997
     \item b found using libsvm = -1.0622098653371628
-    \item They are approximately equal
+    \item The bs obtained are approximately equal
+    \item 3054 support vectors match
 \end{itemize}
 
 \paragraph{For Linear Kernel}
 \begin{itemize}
     \item b found using cvxopt = 1.041890005986661
     \item b found using libsvm = 1.06989668
+    \item 2371 support vectors match
+    \item 383 entries in w are not within a margin of 1e-5 
+\end{itemize}
+
+\paragraph{Between Linear and Gaussian Kernel}
+\begin{itemize}
+    \item 2206 support vectors match when using cvxopt
+    \item 2190 support vectors match when using libsvm
 \end{itemize}
 
 \subsection{Multi-Class Image Classification}
@@ -476,13 +485,13 @@ To express the SVM dual in this form:
 \end{itemize}
 
 \subsubsection{Confusion Matrix and Observations}
-For CVXOPT:
+\paragraph{For CVXOPT:}
+\includegraphics[width=0.6\textwidth]{Assignment 2/q2/confusion_matrix cvxopt.png}
 
 
+\paragraph{For LIBSVM:}
 
-For LIBSVM:
-
-\includegraphics[width=\textwidth]{Assignment 2/q2/confusion_matrix libsvm.png}
+\includegraphics[width=0.6\textwidth]{Assignment 2/q2/confusion_matrix libsvm.png}
 \begin{itemize}
     \item We can see that 58 examples of class 4 are predicted as class 2, this is the highest number among classes being misclassified
 \end{itemize}
@@ -490,6 +499,15 @@ Some misclassified images:
 
 
 \includegraphics[width=0.7\textwidth]{Assignment 2/q2/misclassified_4_2.png}
+
+
+This misclassification makes sense. Th mapping for Intel image classification dataset is 'buildings' - 0,
+'forest' - 1,
+'glacier' - 2,
+'mountain' - 3,
+'sea' - 4,
+'street' - 5. Classifying into glacier and sea is a more intricate task compared to others, as they are somewhat similar in images.
+
 
 \subsubsection{Validation and Cross-Validation}
 % Write your answers for part 2(d) here.
@@ -513,4 +531,5 @@ There's an upward trend in performance as \( C \) increases from \( 1 \times 10^
 Very low values of \( C \) (like \( 1 \times 10^{-5} \) and \( 0.001 \)) lead to poor performance, suggesting potential underfitting. The model might be too regularized and fails to capture the underlying patterns in the data.
 
 
+Note that the cross validation accuracy for lower vlaues of C such as C=1e-5 is very less, it is almost the same as a random classifier. This is because the number of elements of each class might not be same in each of the folds. If the folds are kept uniform, we get higher cross validation accuracy for lower values of C(around 40 percent). This is called Stratified KFold.
 \end{document}
