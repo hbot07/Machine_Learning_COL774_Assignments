@@ -476,6 +476,12 @@ To express the SVM dual in this form:
 \end{itemize}
 
 \subsubsection{Confusion Matrix and Observations}
+For CVXOPT:
+
+
+
+For LIBSVM:
+
 \includegraphics[width=\textwidth]{Assignment 2/q2/confusion_matrix libsvm.png}
 \begin{itemize}
     \item We can see that 58 examples of class 4 are predicted as class 2, this is the highest number among classes being misclassified
@@ -487,8 +493,24 @@ Some misclassified images:
 
 \subsubsection{Validation and Cross-Validation}
 % Write your answers for part 2(d) here.
-\includegraphics[width=\textwidth]{Assignment 2/q2/cross_validation_mult.png}
+\includegraphics[width=\textwidth]{Assignment 2/q2/cross_validation_mult real.png}
 
-As is evident from the graph, lower values of C are better, thus 1e-5 is the best value. It has the highest validation and cross validation accuracy. When the cross validation accuracy is high and the validation accuracy is low, there is overfitting. Lower values of C allow for a larger margin even if it means some misclassifications on the training data, thus it is acting better here.
+As is evident from the graph, higher values of C are better, thus 10 is the best value. 
+The model achieves the highest cross-validation accuracy of 59.03 with C=10. The validation accuracy for this setting is 60.83.
+
+It has the highest validation and cross validation accuracy. 
+
+\( C = 1 \times 10^{-5} \) and \( C = 0.001 \) both lead to poor performance with a CV accuracy of \( 15.81\% \) and a validation accuracy of \( 40.17\% \). This might indicate underfitting.
+
+\( C = 1 \) has a CV accuracy of \( 54.85\% \) and a validation accuracy of \( 55.83\% \).
+
+\( C = 5 \) results in a CV accuracy of \( 57.87\% \) and a validation accuracy of \( 59.25\% \).
+
+As mentioned, \( C = 10 \) gives the best results.
+
+There's an upward trend in performance as \( C \) increases from \( 1 \times 10^{-5} \) to \( 10 \). However, after \( C = 10 \), the performance starts decreasing, suggesting that \( C = 10 \) might be an optimal value in this range.
+
+Very low values of \( C \) (like \( 1 \times 10^{-5} \) and \( 0.001 \)) lead to poor performance, suggesting potential underfitting. The model might be too regularized and fails to capture the underlying patterns in the data.
+
 
 \end{document}
