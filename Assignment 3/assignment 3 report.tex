@@ -1,0 +1,115 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{float}
+
+\title{Predicting Cricket Match Outcomes Using Decision Trees and Random Forests}
+\author{Parth Thakur\\
+        2021CS50615}
+\date{\today}
+
+\begin{document}
+
+\section{Methodology}
+    \subsection{Data Description}
+        The dataset consists of attributes obtained after the first innings of white ball cricket matches, along with meta-information such as countries playing, who won the toss, etc. The dataset is split into predefined training, testing, and validation sets.
+
+\section{Decision Trees and Random Forests}
+\subsection{Decision Tree Construction}
+    \begin{itemize}
+        \item Constructed decision trees using mutual information for attribute selection.
+        \item Handled continuous attributes through median-based splitting and categorical attributes through k-way splitting.
+        \item Experimented with maximum depths of \{5, 10, 15, 20, 25\}.
+    \end{itemize}
+
+
+\begin{table}[H]
+\centering
+\caption{Decision Tree Accuracies at Various Depths}
+\label{table:decision_tree_accuracies}
+\begin{tabular}{ccc}
+\toprule
+Depth & Training Accuracy & Test Accuracy \\
+\midrule
+5  & 0.8855 & 0.5440 \\
+10 & 0.9963 & 0.5657 \\
+15 & 0.9969 & 0.5657 \\
+20 & 0.9969 & 0.5657 \\
+25 & 0.9969 & 0.5657 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Training Accuracy for only loss prediction: 0.4966
+
+Training Accuracy for only win prediction: 0.5033
+
+Test Accuracy for only loss prediction: 0.5036
+
+Test Accuracy for only win prediction: 0.4963
+
+\begin{itemize}
+    \item \textbf{Overfitting with Increasing Depth:} Training accuracy increases with depth, reaching nearly 99.7\% for depths 15, 20, and 25, indicating overfitting. Test accuracy remains constant around 56.57\% for depths above 10, suggesting the model doesn't generalize well to unseen data.
+    
+    \item \textbf{Consistent Test Accuracy:} Test accuracy is relatively consistent across different depths, suggesting that increased complexity at higher depths doesn't improve performance on unseen data.
+    
+    \item \textbf{Balanced Win/Loss Prediction:} Accuracies for only loss and only win prediction are roughly balanced around 50\%, indicating no significant bias towards predicting one class over the other.
+    
+    \item \textbf{Gap Between Training and Test Accuracies:} The significant gap between training and test accuracies, especially at higher depths, further indicates overfitting.
+    
+    \item \textbf{Optimal Maximum Depth:} A maximum depth of 10 appears to be a reasonable choice, offering a balance between training and test accuracies without excessive overfitting.
+\end{itemize}
+
+
+\subsection{Decision Tree One Hot Encoding}
+    \begin{itemize}
+        \item Implemented one hot encoding for categorical attributes.
+        \item Repeated decision tree construction for depths \{15, 25, 35, 45\}.
+        \item Compared results with the previous method.
+    \end{itemize}
+
+\subsection{Decision Tree Post Pruning}
+    \begin{itemize}
+        \item Applied post-pruning based on a validation set.
+        \item Plotted training, validation, and test set accuracies against the number of nodes.
+    \end{itemize}
+
+\subsection{Decision Tree Sci-kit Learn}
+    \begin{itemize}
+        \item Built decision trees using the sci-kit learn library.
+        \item Varying max depth in range \{15, 25, 35, 45\} and pruning parameters ccp alpha in range \{0.001, 0.01, 0.1, 0.2\}.
+        \item Reported train and test accuracies and plotted against max depth and ccp alpha.
+        \item Used validation set to determine optimal parameters.
+        \item Compared results with parts (b) and (c).
+    \end{itemize}
+
+\subsection{Random Forests}
+    \begin{itemize}
+        \item Used sci-kit learn library to grow Random Forests.
+        \item Experimented with parameters: n\_estimators (50 to 350), max\_features (0.1 to 1.0), min\_samples\_split (2 to 10).
+        \item Performed grid search for parameter tuning based on out-of-bag accuracy.
+        \item Reported training, out-of-bag, validation, and test set accuracies.
+        \item Compared results with parts (c) and (d).
+    \end{itemize}
+
+\section{Results and Discussion}
+    \subsection{Decision Tree Results}
+        Present tables and plots for decision tree results, discuss findings.
+    
+    \subsection{Random Forest Results}
+        Present tables and plots for random forest results, discuss findings.
+
+\section{Conclusion}
+    Summarize the findings, discuss the implications, and suggest future work.
+
+\section{References}
+    Add references to the tools, datasets, and any other resources used in the study.
+
+\end{document}
