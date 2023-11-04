@@ -106,7 +106,6 @@ Max Depth & Training Accuracy & Test Accuracy \\ \midrule
 \subsection{Decision Tree Post Pruning}
     \begin{itemize}
         \item Applied post-pruning based on a validation set.
-        \item Plotted training, validation, and test set accuracies against the number of nodes.
     \end{itemize}
 
     \begin{table}[ht]
@@ -128,6 +127,28 @@ Attempt 4 & 0.7494 & 0.6313 & 0.5657 \\
 \begin{center}
     \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(c)depth_vs_accuracy after pruning.png}
 \end{center}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(c)depth_vs_accuracy after pruning.png}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(c)depth_vs_accuracy after pruning.png}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(c)depth_vs_accuracy after pruning.png}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(c)depth_vs_accuracy after pruning.png}
+\end{center}
+
+\begin{itemize}
+    \item As the number of nodes decrease, i.e pruning happens, the training accuracy decreases
+    \item The validation accuracy increase
+    \item There is no specific trend in test accuracy
+\end{itemize}
 
 \subsection{Decision Tree Sci-kit Learn}
     \begin{itemize}
@@ -222,7 +243,7 @@ For brevity, the tables for precision, recall and f1 score are included in anoth
 
 \subsection{Depth of Neural Network Experiments (Part c and d)}
 \subsubsection{Methodology}
-A different stopping criteria was used for the last 2 layer configs as the change in loss for them in the first few iterations was low.
+A different stopping criteria was used for the last 2 layer configs as the change in loss for them in the first few iterations was low. The stopping criteria used is based on the standard deviation of last n losses being lower than a particular threshold.
 
 \subsubsection{Results and Discussion}
 Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. the network depth. Discussion of the results and the impact of adaptive learning rate.
@@ -241,13 +262,30 @@ With adaptive learning the training was better in most cases(except for depth 2)
 \subsection{Experiments with ReLU Activation (Part e)}
 
 \subsubsection{Results and Discussion}
-Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. network depth with ReLU activation. Discussion of the results and comparison with previous parts.
+
+\begin{itemize}
+    \item The convergence was faster in all models compared to sigmoid
+    \item Lesser number of epochs were needed
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q2/(e) relu adaptive training f1 vs hidden_depth.png}
+\end{center}
+
+\begin{itemize}
+    \item For the training data, the precision, recall, and f1-score steadily increase with the addition of hidden layers, reaching almost perfect scores with four hidden layers ([1024, 512, 256, 128, 5]).
+    \item On the test data, there is an improvement in the scores from a single hidden layer to two hidden layers. Beyond two hidden layers, while there is still an improvement, the rate of increase in performance metrics slows down, indicating diminishing returns.
+    \item There is a large gap between training and test accuracy, particularly noticeable in the models with more hidden layers. This is a classic sign of overfitting, where the model learns the training data too well, including noise and details that do not generalize.
+    \item The more complex the model (with more layers), the better it performs on the more difficult classes (such as Classes 2, 3, and 4), as evidenced by the improved recall and f1-scores on the test data.
+\end{itemize}
 
 \subsection{Comparison with scikit-learn Implementation (Part f)}
-\subsubsection{Methodology}
-Description of the neural network implementation using scikit-learn's MLPClassifier.
 
 \subsubsection{Results and Discussion}
-Comparison of precision, recall, and F1 score for each class with the custom implementation. Discussion of the observations and any differences noted.
+Comparing the precision, recall, and F1 score for each class with the custom implementation, we find that the custom implementation has better results. This can be because of the default paramter of epochs=200 in the MLPClassifier.
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q2/(f) f1 vs hidden_depth.png}
+\end{center}
 
 \end{document}
