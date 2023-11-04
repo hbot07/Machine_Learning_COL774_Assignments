@@ -109,6 +109,24 @@ Max Depth & Training Accuracy & Test Accuracy \\ \midrule
         \item Plotted training, validation, and test set accuracies against the number of nodes.
     \end{itemize}
 
+    \begin{table}[ht]
+\centering
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & Validation Accuracy & Train Accuracy & Test Accuracy \\ 
+\midrule
+Attempt 1 & 0.6437 & 0.6313 & 0.5657 \\
+Attempt 2 & 0.6966 & 0.6313 & 0.5657 \\
+Attempt 3 & 0.7241 & 0.6313 & 0.5657 \\
+Attempt 4 & 0.7494 & 0.6313 & 0.5657 \\
+\bottomrule
+\end{tabular}
+\caption{Model accuracies over different attempts}
+\label{tab:accuracies}
+\end{table}
+
+
+
 \subsection{Decision Tree Sci-kit Learn}
     \begin{itemize}
         \item Built decision trees using the sci-kit learn library.
@@ -182,15 +200,19 @@ Test Accuracy & 72.80\% \\
 \section{Neural Networks}
 
 \subsection{Single Hidden Layer Experiments (Part b)}
-\subsubsection{Methodology}
-Explanation of the methodology for the single hidden layer experiments.
 
-\subsubsection{Results and Discussion}
-Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. the number of hidden units. Discussion of the results.
+\subsubsection{Results}
+
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q2/(b) f1 vs hidden_size.png}
+\end{center}
+
+
 
 \subsection{Depth of Neural Network Experiments (Part c and d)}
 \subsubsection{Methodology}
-Explanation of the methodology for varying the depth of the neural network.
+A different stopping criteria was used for the last 2 layer configs as the change in loss for them in the first few iterations was low.
 
 \subsubsection{Results and Discussion}
 Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. the network depth. Discussion of the results and the impact of adaptive learning rate.
