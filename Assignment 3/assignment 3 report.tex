@@ -75,7 +75,7 @@ Test Accuracy for only win prediction: 0.4963
     \begin{itemize}
         \item Implemented one hot encoding for categorical attributes.
         \item Repeated decision tree construction for depths \{15, 25, 35, 45\}.
-        \item Compared results with the previous method.
+        \item Comparing results with the previous method, the training accuracy reduces but the test accuracy increases which suggests better model fitting.
     \end{itemize}
 
     \begin{table}[h]
@@ -125,7 +125,9 @@ Attempt 4 & 0.7494 & 0.6313 & 0.5657 \\
 \label{tab:accuracies}
 \end{table}
 
-
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(c)depth_vs_accuracy after pruning.png}
+\end{center}
 
 \subsection{Decision Tree Sci-kit Learn}
     \begin{itemize}
@@ -133,10 +135,16 @@ Attempt 4 & 0.7494 & 0.6313 & 0.5657 \\
         \item Varying max depth in range \{15, 25, 35, 45\} and pruning parameters ccp alpha in range \{0.001, 0.01, 0.1, 0.2\}.
         \item Reported train and test accuracies and plotted against max depth and ccp alpha.
         \item Used validation set to determine optimal parameters.
-        \item Compared results with parts (b) and (c).
+        \item Comparing results with parts (b) and (c), we get better training and validation accuracies for the optimal parameters, suggesting a better model fit. This verifies that our method for hyperparameter tuning is correct.
     \end{itemize}
 
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(d)depth_vs_accuracy.png}
+\end{center}
 
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(d)ccp_vs_accuracy.png}
+\end{center}
 
 \begin{table}[h]
 \centering
@@ -199,6 +207,8 @@ Test Accuracy & 72.80\% \\
 
 \section{Neural Networks}
 
+For brevity, the tables for precision, recall and f1 score are included in another file.
+
 \subsection{Single Hidden Layer Experiments (Part b)}
 
 \subsubsection{Results}
@@ -216,10 +226,19 @@ A different stopping criteria was used for the last 2 layer configs as the chang
 
 \subsubsection{Results and Discussion}
 Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. the network depth. Discussion of the results and the impact of adaptive learning rate.
+\paragraph{c) }
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q2/(c) f1 vs hidden_depth.png}
+\end{center}
+
+\paragraph{d) Adaptive Learning}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q2/(d).png}
+\end{center}
+
+With adaptive learning the training was better in most cases(except for depth 2). For depth 2 there seems to be under fitting, but the training had converged. This might be because the learning rate became too low.
 
 \subsection{Experiments with ReLU Activation (Part e)}
-\subsubsection{Methodology}
-Explanation of the changes made to the neural network to incorporate ReLU activation.
 
 \subsubsection{Results and Discussion}
 Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. network depth with ReLU activation. Discussion of the results and comparison with previous parts.
