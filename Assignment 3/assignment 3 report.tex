@@ -91,7 +91,11 @@ Max Depth & Training Accuracy & Test Accuracy \\ \midrule
 \caption{Accuracies of the decision tree with varying maximum depths.}
 \end{table}
 
-\subsection*{Observations}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{Assignment 3/q1/(b)depth_vs_accuracy.png}
+\end{center}
+
+\paragraph{Observations}
 \begin{itemize}
     \item The training accuracy increases with the depth of the tree, indicating a more complex model that better fits the training data.
     \item The test accuracy does not consistently improve with increased depth, suggesting that deeper trees may be overfitting the training data.
@@ -114,6 +118,31 @@ Max Depth & Training Accuracy & Test Accuracy \\ \midrule
         \item Compared results with parts (b) and (c).
     \end{itemize}
 
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Max Depth} & \textbf{Training Accuracy} & \textbf{Test Accuracy} & \textbf{Validation Accuracy} \\ \hline
+15                 & 0.824454                   & 0.605998               & 0.643678                     \\ \hline
+25                 & 0.992334                   & 0.619442               & 0.625287                     \\ \hline
+35                 & 0.999744                   & 0.608066               & 0.619540                     \\ \hline
+45                 & 1.000000                   & 0.619442               & 0.620690                     \\ \hline
+\end{tabular}
+\caption{Decision Tree Accuracies with Varying Max Depth}
+\label{table:decision_tree_accuracies}
+\end{table}
+
+Some observations from the table:
+\begin{itemize}
+  \item The training accuracy increases with the depth of the tree, reaching perfect accuracy at a depth of 45. This is indicative of overfitting, where the model perfectly learns the training data including its noise.
+  \item The test and validation accuracies do not improve significantly with increased depth, which supports the indication of overfitting. The model does not generalize well to unseen data when the tree is too deep.
+  \item The validation accuracy is highest for a depth of 15, suggesting that shallower trees may be better at generalizing in this case.
+  \item The lack of substantial difference between test and validation accuracies across different depths suggests that the model's ability to generalize has reached a plateau and is not significantly affected by increasing the tree depth beyond a certain point.
+\end{itemize}
+
+
 \subsection{Random Forests}
     \begin{itemize}
         \item Used sci-kit learn library to grow Random Forests.
@@ -123,5 +152,61 @@ Max Depth & Training Accuracy & Test Accuracy \\ \midrule
         \item Compared results with parts (c) and (d).
     \end{itemize}
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Parameter/Metric} & \textbf{Value} \\
+\hline
+Best max\_features & 0.3 \\
+Best min\_samples\_split & 10 \\
+Best n\_estimators & 350 \\
+OOB Accuracy & 72.81\% \\
+Training Accuracy & 94.57\% \\
+Validation Accuracy & 72.30\% \\
+Test Accuracy & 72.80\% \\
+\hline
+\end{tabular}
+\caption{Random Forest optimal parameters and accuracies}
+\label{tab:rf_results}
+\end{table}
+
+\paragraph{Observations}
+\begin{itemize}
+  \item The optimal Random Forest model with moderate features per split (\(0.3\)) and a large number of trees (\(350\)) indicates a balance between model complexity and generalization.
+  \item The OOB accuracy closely mirrors the validation and test accuracies, suggesting the model's robustness in generalizing to unseen data.
+  \item The substantial gap between training accuracy (\(94.57\%\)) and OOB/validation/test accuracies (\(~72\%\)) may indicate overfitting, although the model's performance is consistent across different data samples.
+\end{itemize}
+
+
+\section{Neural Networks}
+
+\subsection{Single Hidden Layer Experiments (Part b)}
+\subsubsection{Methodology}
+Explanation of the methodology for the single hidden layer experiments.
+
+\subsubsection{Results and Discussion}
+Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. the number of hidden units. Discussion of the results.
+
+\subsection{Depth of Neural Network Experiments (Part c and d)}
+\subsubsection{Methodology}
+Explanation of the methodology for varying the depth of the neural network.
+
+\subsubsection{Results and Discussion}
+Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. the network depth. Discussion of the results and the impact of adaptive learning rate.
+
+\subsection{Experiments with ReLU Activation (Part e)}
+\subsubsection{Methodology}
+Explanation of the changes made to the neural network to incorporate ReLU activation.
+
+\subsubsection{Results and Discussion}
+Tables and plots for precision, recall, and F1 score for each class, and the average F1 score vs. network depth with ReLU activation. Discussion of the results and comparison with previous parts.
+
+\subsection{Comparison with scikit-learn Implementation (Part f)}
+\subsubsection{Methodology}
+Description of the neural network implementation using scikit-learn's MLPClassifier.
+
+\subsubsection{Results and Discussion}
+Comparison of precision, recall, and F1 score for each class with the custom implementation. Discussion of the observations and any differences noted.
 
 \end{document}
